@@ -1,0 +1,197 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} | Our Cars Inventory {% endblock %}
+
+{% block content %}
+<!-- Featured car start -->
+<div class="featured-car content-area p">
+    <div class="container pt-3">
+        <div class="row">
+             <div class="col-lg-3 col-md-3 col-mb-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search2">
+                        <h3 class="sidebar-title">Search Cars</h3>
+                        <form action="" method="">
+                            {% comment %} action="{% url 'search' %} {% endcomment %}
+                            <div class="form-group">
+                                <input type="text" name="keyword" placeholder="Search by name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="model">
+                                    <option selected="true" disabled="disabled">Model</option>
+                                    {% for model in model_search %}
+                                      <option value="{{model}}">{{model}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="city">
+                                    <option selected="true" disabled="disabled">Location</option>
+                                    {% for city in city_search %}
+                                      <option value="{{city}}">{{city}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="year">
+                                    <option selected="true" disabled="disabled">Year</option>
+                                    {% for year in year_search %}
+                                      <option value="{{year}}">{{year}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="body_style">
+                                    <option selected="true" disabled="disabled">Select Type Of Car</option>
+                                    {% for body_style in body_style_search %}
+                                      <option value="{{body_style}}">{{body_style}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% comment %} <div class="range-slider clearfix">
+                                            <label>Price</label>
+                                            <div data-min="0" data-max="1500000"  data-min-name="min_price" data-max-name="max_price" data-unit="Rs." class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                            <div class="clearfix"></div>
+                                        </div> {% endcomment %}
+                            <div class="form-group">
+                                <button class="btn btn-block button-theme btn-md">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div> 
+
+                    
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-mb-12">
+
+                <div class="row">
+                  {% for car in cars %}
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="car-box-3">
+                            <div class="car-thumbnail">
+                                <a href="{% url 'vehicles:car_detail' car.id %}" class="car-img">
+                                    <img class="d-block w-100" src="{{car.feature_photo.url}}" alt="car"  style="min-height: 262px; max-height: 262px;">
+                                </a>
+                                <div class="carbox-overlap-wrapper p-3">
+                                    <div class="overlap-box">
+                                        <div class="overlap-btns-area">
+                                            <div class="car-magnify-gallery">
+                                                <a href="{{car.feature_photo.url}}" class="overlap-btn">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <img class="hidden" src="{{car.feature_photo.url}}">
+                                                </a>
+                                                {% if car.gallery_1 %}
+                                                <a href="{{car.gallery_1.url}}" class="hidden" >
+                                                    <img class="hidden" src="{{car.gallery_1.url}}">
+                                                </a>
+                                                {% endif %}
+                                                {% if car.gallery_2 %}
+                                                <a href="{{car.gallery_2.url}}" class="hidden">
+                                                    <img class="hidden" src="{{car.gallery_2.url}}">
+                                                </a>
+                                                {% endif %}
+                                                {% if car.gallery_3 %}
+                                                <a href="{{car.gallery_3.url}}" class="hidden">
+                                                    <img class="hidden" src="{{car.gallery_3.url}}">
+                                                </a>
+                                                {% endif %}
+                                                {% if car.gallery_4 %}
+                                                <a href="{{car.gallery_4.url}}" class="hidden" >
+                                                    <img class="hidden" src="{{car.gallery_4.url}}">
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							
+                            <div class="detail">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-mb-8">
+                                      <h2 class="title">
+                                        <a href="{% url 'vehicles:car_detail' car.id %}">{{ car.brand }}  {{ car.car_model_name }}</a>
+                                      </h2>
+                                      <div class="location">
+                                        <a href="{% url 'vehicles:car_detail' car.id %}">
+                                          <i class="fa-solid fa-location-dot"></i>   {{ car.location }}
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-mb-4">
+                                      <div class="price-box text-danger">
+                                        <h6>
+                                          <span>Rs.</span>
+                                        <span> {{ car.price | intcomma }}</span>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <ul class="facilities-list clearfix">
+                                    <li>{{car.fuel}}</li>
+                                    <li>{{car.km_driven | intcomma }} km</li>
+                                    <li>{{car.transmission}}</li>
+                                    <li>{{car.car_type}}</li>
+                                    <li>{{car.ownership}}</li>
+                                    <li>{{car.model_year}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+
+
+                </div>
+                <!-- Page navigation start -->
+                <div class="pagination-box p-box-2 text-center">
+                    <nav aria-label="Page navigation example">
+                      {% if cars.has_other_pages %}
+                        <ul class="pagination">
+                          {% if cars.has_previous %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{cars.previous_page_number}}"><i class="fa fa-angle-left"></i></a>
+                              </li>
+                          {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                          {% endif %}
+
+                          {% for i in cars.paginator.page_range %}
+                            {% if cars.number == i %}
+                              <li class="page-item"><a class="page-link active" href="#">{{i}}</a></li>
+                            {% else %}
+                              <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                          {% endfor %}
+
+                          {% if cars.has_next %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{cars.next_page_number}}"><i class="fa fa-angle-right"></i></a>
+                              </li>
+                          {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                          {% endif %}
+
+                        </ul>
+                      {% endif %}
+                    </nav>
+                </div>
+            </div>
+			
+            
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+
+{% endblock %}

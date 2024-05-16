@@ -1,0 +1,269 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+   Add Car
+{% endblock %}
+
+{% block content %}
+<form class="form-with-validation" action="{% url 'vehicles:sell-car' %}" method="post" enctype="multipart/form-data"> 
+   {% csrf_token %}
+   <div class="container ">
+       <div class="row justify-content-center">
+           <div class="col-md-12 col-mb-12">
+               <div class="form-box d-flex justify-content-center">
+                   <div class="input-box ">
+                       <h1 class="h1">Sell Car</h1>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="brand">Brand:</label>
+                               {{ form.brand }}
+                               {% for error in form.brand.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="car_type">Car Type:</label>
+                               {{ form.car_type }}
+                               {% for error in form.car_type.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="car_model_name">Car Model Name:</label>
+                               {{ form.car_model_name }}
+                               {% for error in form.car_model_name.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="model_year">Model Year:</label>
+                               {{ form.model_year }}
+                               {% for error in form.model_year.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="km_driven">Kilometers Driven:</label>
+                               {{ form.km_driven }}
+                               {% for error in form.km_driven.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="mileage">Mileage:</label>
+                               {{ form.mileage }}
+                               {% for error in form.mileage.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="transmission">Transmission:</label>
+                            <div>
+                                {% for choice in form.transmission.field.choices %}
+                                <div class="radio-button">
+                                     <input type="radio" name="{{ form.transmission.html_name }}" value="{{ choice.0 }}" id="{{ choice.0 }}">
+                                     <label for="{{ choice.0 }}">
+                                         {{ form.transmission.tag }}{{ choice.0 }}
+                                     </label>
+                                 </div>
+                                {% endfor %}
+                            </div>
+                            {% for error in form.transmission.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                           </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="fuel">Fuel:</label>
+                            <div>
+                                 {% for choice in form.fuel.field.choices %}
+                                 <div class="radio-button">
+                                     <input type="radio" name="{{ form.fuel.html_name }}" value="{{ choice.0 }}" id="{{ choice.0 }}">
+                                     <label for="{{ choice.0 }}">
+                                        {{ form.fuel.tag }}{{ choice.0 }}
+                                     </label>
+                                 </div>
+                                 {% endfor %}
+                            </div>
+                            {% for error in form.fuel.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="registration_no">Registration Number:</label>
+                                {{ form.registration_no }}
+                                {% for error in form.registration_no.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="price">Price:</label>
+                               {{ form.price }}
+                               {% for error in form.price.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="location">Location:</label>
+                               {{ form.location }}
+                               {% for error in form.location.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                           <div class="col-lg-6 col-md-6 mb-3">
+                               <label for="chassis_no">Chassis Number:</label>
+                               {{ form.chassis_no }}
+                               {% for error in form.chassis_no.errors %}
+                                   <div class="text-danger">{{ error }}</div>
+                               {% endfor %}
+                           </div>
+                       </div>
+                       <div class="row">
+                            <div>
+                                <label for="ownership">Ownership:</label>
+                                {{ form.ownership }}
+                                {% for error in form.ownership.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div>
+                                <label for="description">Description:</label>
+                                {{ form.description }}
+                                {% for error in form.description.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="photo_of_bluebook">Photo of Bluebook:</label>
+                                {{ form.photo_of_bluebook }}
+                                {% for error in form.photo_of_bluebook.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="feature_photo">Feature Photo:</label>
+                                    {{ form.feature_photo }}
+                                    {% for error in form.feature_photo.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_1">Gallery Photo 1:</label>
+                                    {{ form.gallery_1 }}
+                                    {% for error in form.gallery_1.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_2">Gallery Photo 2:</label>
+                                    {{ form.gallery_2 }}
+                                    {% for error in form.gallery_2.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_3">Gallery Photo 3:</label>
+                                    {{ form.gallery_3 }}
+                                    {% for error in form.gallery_3.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="gallery_4">Gallery Photo 4:</label>
+                                {{ form.gallery_4 }}
+                                {% for error in form.gallery_4.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mb-3" id="showMorePhotos"  style="display: block;">
+                            <button type="button" class="btn btn-primary"  onclick="toggleGalleryPhotos()">Add More Gallery Photos</button>
+                        </div>
+                        <div id="moreGalleryPhotos" style="display: none;">
+                            <h6 class="text-danger">**The fields below are optional, add only those which are required</h6>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_5">Gallery Photo 5:</label>
+                                    {{ form.gallery_5 }}
+                                    {% for error in form.gallery_5.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_6">Gallery Photo 6:</label>
+                                    {{ form.gallery_6 }}
+                                    {% for error in form.gallery_6.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_7">Gallery Photo 7:</label>
+                                    {{ form.gallery_7 }}
+                                    {% for error in form.gallery_7.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_8">Gallery Photo 8:</label>
+                                    {{ form.gallery_8 }}
+                                    {% for error in form.gallery_8.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_9">Gallery Photo 9:</label>
+                                    {{ form.gallery_9 }}
+                                    {% for error in form.gallery_9.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="gallery_10">Gallery Photo 10:</label>
+                                    {{ form.gallery_10 }}
+                                    {% for error in form.gallery_10.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if form.non_field_errors %}
+                            <div style="color:red; text-align: center;">
+                                <p>{{ form.non_field_errors }}</p>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary register-btn">Add Car</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div> 
+</form> 
+{% endblock %}
+
+                            
+                            

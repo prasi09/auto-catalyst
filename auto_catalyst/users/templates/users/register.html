@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Register User
+{% endblock %}
+
+{% block content %}
+<form class="form-with-validation" action="{% url 'users:register' %}" method="post" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="form-box">
+                    <div class="input-box">
+                        <h1 class="h1">Register User</h1>
+                        <div class="form-group">
+                            <label class="fname" for="fname">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="&#xf007; Name" value="{{ values.name }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="email" for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="&#xf0e0; E-mail Id" value="{{ values.email }}" required>
+                            {% comment %} type text pahila {% endcomment %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone_no">Phone no:</label>
+                            <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="&#xf095; Phone-Number" value="{{ values.phone_no }}" required>
+                             {% comment %} type="text pahila" {% endcomment %}
+                        </div>
+                        <div class="form-group">
+                            <label class="lname" for="lname">Address:</label>                                
+                            <input type="text" class="form-control" id="address" name="address" placeholder="&#xf2b9; Address" value="{{ values.address }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="pass1" for="pass1">Password:</label>
+                            <input type="password" class="form-control" id="password1" name="password1" placeholder="&#xf084; Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="pass2" for="pass2">Confirm Password:</label>
+                            <input type="password" class="form-control" id="password2" name="password2" placeholder="&#xf084; Confirm Password" required>
+                        </div>    
+                        {% for field in registration_form %}
+                            <p>
+                                {% for error in field.errors %}
+                                <p style="color:red; text-align: center;">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                        {% endfor %}
+                        {% if registration_form.non_field_errors %}
+                            <div style="color:red; text-align: center;" >
+                                <p>{{ registration_form.non_field_errors }}</p>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary register-btn">Register</button>
+                        <a href="{% url 'users:agent_register' %}" class="d-flex justify-content-center">Register as a Agent?</a>
+                        <hr>
+                        <p style="text-align:center; margin-bottom:0">Already have an account? <a href="{% url 'users:login' %}">Sign in here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

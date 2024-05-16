@@ -1,0 +1,11 @@
+Hi, {{ user.name }},
+
+Welcome to Auto-Catalyst.
+
+Here is the activation link:
+
+http://{{ domain }}{% url 'users:activate' uidb64=uid token=token %}
+
+You will be redirected back to the website of Auto-Catalyst where you can log-in to your credentials.
+
+Thank You!

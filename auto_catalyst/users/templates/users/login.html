@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 p-5">
+            <div class="card">
+                    <form action="" method="Post" enctype="multipart/form_data" class="shadow p-5">
+                <h1 class="card-title text-center">Login</h1>
+                <form action="" method="Post" enctype="multipart/form_data" class="shadow p-5">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="phone_no" name="phone_no" placeholder="&#xf0e0; Phone Number" required >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="&#xf084; Password" required>
+                    </div>
+                    <div class="d-flex justify-content-center mb-0 mt-1">
+                        <a href="{% url 'users:password_reset' %}">Forgot Password?</a>
+                    </div>
+                    <input type="submit" class="btn btn-primary register-btn" value="Login">
+                    <hr>
+                    <p>Don't have an account yet? <a href="{% url 'users:register' %}">Create an account</a></p>
+                </form>
+               
+           
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %} <a href="{% url 'users:password_change' %}" style="align-text:center">Change Password?</a> {% endcomment %}
